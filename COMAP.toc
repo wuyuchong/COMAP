@@ -1,0 +1,44 @@
+\contentsline {section}{Letter to the Marketing Director}{2}{section*.2}
+\contentsline {section}{\numberline {1}Introduction}{5}{section.1}
+\contentsline {subsection}{\numberline {1.1}Background}{5}{subsection.1.1}
+\contentsline {subsection}{\numberline {1.2}Our work}{5}{subsection.1.2}
+\contentsline {section}{\numberline {2}Notation and Assumptions}{5}{section.2}
+\contentsline {section}{\numberline {3}Relationship between variables}{6}{section.3}
+\contentsline {subsection}{\numberline {3.1}Descriptive statistics}{6}{subsection.3.1}
+\contentsline {subsection}{\numberline {3.2}Reviews that triggered by a specific star rating}{7}{subsection.3.2}
+\contentsline {subsubsection}{\numberline {3.2.1}Research ideas}{7}{subsubsection.3.2.1}
+\contentsline {subsubsection}{\numberline {3.2.2}Model construction and solution}{7}{subsubsection.3.2.2}
+\contentsline {subsection}{\numberline {3.3}Relationship between \emph {Star rating} and specific emotion words}{10}{subsection.3.3}
+\contentsline {section}{\numberline {4}Identify useful reviews}{10}{section.4}
+\contentsline {subsection}{\numberline {4.1}Research ideas}{10}{subsection.4.1}
+\contentsline {subsection}{\numberline {4.2}Model establishing}{12}{subsection.4.2}
+\contentsline {subsection}{\numberline {4.3}Model Result}{13}{subsection.4.3}
+\contentsline {section}{\numberline {5}GD, SGD and Neural Network}{14}{section.5}
+\contentsline {subsection}{\numberline {5.1}Logit model based on GD and SGD optimization methods}{14}{subsection.5.1}
+\contentsline {subsubsection}{\numberline {5.1.1}Model establishing}{14}{subsubsection.5.1.1}
+\contentsline {subsubsection}{\numberline {5.1.2}Model solving}{14}{subsubsection.5.1.2}
+\contentsline {subsection}{\numberline {5.2}Neural network model based on SGD optimization method}{15}{subsection.5.2}
+\contentsline {subsubsection}{\numberline {5.2.1}Model establishing}{15}{subsubsection.5.2.1}
+\contentsline {paragraph}{\numberline {5.2.1.1}Neurons}{15}{paragraph.5.2.1.1}
+\contentsline {paragraph}{\numberline {5.2.1.2}Neural Networks}{15}{paragraph.5.2.1.2}
+\contentsline {paragraph}{\numberline {5.2.1.3}Feedforward and Loss}{15}{paragraph.5.2.1.3}
+\contentsline {subsubsection}{\numberline {5.2.2}Model solving}{16}{subsubsection.5.2.2}
+\contentsline {paragraph}{\numberline {5.2.2.1}Training neural network}{16}{paragraph.5.2.2.1}
+\contentsline {paragraph}{\numberline {5.2.2.2}SGD optimization method}{16}{paragraph.5.2.2.2}
+\contentsline {paragraph}{\numberline {5.2.2.3}Initialization of weight}{16}{paragraph.5.2.2.3}
+\contentsline {subsubsection}{\numberline {5.2.3}Model results}{17}{subsubsection.5.2.3}
+\contentsline {subsubsection}{\numberline {5.2.4}Cross validation}{17}{subsubsection.5.2.4}
+\contentsline {section}{\numberline {6}Track the real utility of customers}{18}{section.6}
+\contentsline {subsection}{\numberline {6.1}Research ideas}{18}{subsection.6.1}
+\contentsline {subsection}{\numberline {6.2}Feature extraction}{18}{subsection.6.2}
+\contentsline {subsection}{\numberline {6.3}Construction of Customer Utility Function}{19}{subsection.6.3}
+\contentsline {subsection}{\numberline {6.4}Model Result}{20}{subsection.6.4}
+\contentsline {section}{\numberline {7}Product Reputation and Potential Successful Product}{21}{section.7}
+\contentsline {subsection}{\numberline {7.1}Model Establishing}{21}{subsection.7.1}
+\contentsline {subsection}{\numberline {7.2}Model Solving}{21}{subsection.7.2}
+\contentsline {subsection}{\numberline {7.3}Product Forecast}{22}{subsection.7.3}
+\contentsline {section}{\numberline {8}Strengths and Weaknessess}{23}{section.8}
+\contentsline {subsection}{\numberline {8.1}Strengths}{23}{subsection.8.1}
+\contentsline {subsection}{\numberline {8.2}Weaknessess}{24}{subsection.8.2}
+\contentsline {section}{References}{25}{section*.3}
+\contentsline {section}{Appendix}{26}{section*.4}

@@ -1,0 +1,129 @@
+﻿group,Attributes,words,tf_idf
+pacifier,place,seat,0.002270132
+pacifier,place,stroller,0.002359286
+pacifier,place,hospital,0.002197691
+pacifier,place,chair,0.000477119
+pacifier,place,mattress,0.001181439
+pacifier,place,carseat,0.000524286
+pacifier,place,bassinet,0.000337554
+pacifier,Baby age,newborn,0.002140235
+pacifier,Baby age,teething,0.001116801
+pacifier,Baby age,breastfed,0.000456057
+pacifier,Baby age,birth,0.000362691
+pacifier,Baby behavior,stuffed,0.000528807
+pacifier,Baby behavior,chew,0.001027026
+pacifier,Baby behavior,spit,0.00063545
+pacifier,Baby behavior,swing,0.000235909
+pacifier,Baby behavior,sippy,0.000438102
+pacifier,Baby status,soothies,0.003192398
+pacifier,Baby status,cutest,0.000262143
+pacifier,Baby status,asleep,0.000326031
+pacifier,Use of pacifier,toys,0.000453263
+pacifier,Use of pacifier,feeding,0.000632016
+pacifier,Use of pacifier,gifts,0.000235909
+pacifier,Character related,nipple,0.003231899
+pacifier,Character related,mam,0.000813007
+pacifier,Character related,boy,0.000495674
+pacifier,Character related,grandson,0.000475794
+pacifier,sanitary condition,washed,0.000265066
+pacifier,sanitary condition,gumdrop,0.000553014
+pacifier,sanitary condition,teether,0.000448875
+pacifier,sanitary condition,bpa,0.000391419
+pacifier,sanitary condition,sterilize,0.000391419
+pacifier,Related Products,monitor,0.002854844
+pacifier,Related Products,diaper,0.0008999
+pacifier,Related Products,pillow,0.000319405
+pacifier,Related Products,straps,0.000815157
+pacifier,Related Products,bibs,0.00068229
+pacifier,Related Products,booster,0.000294462
+pacifier,Related Products,necklace,0.000290871
+pacifier,Related Products,spout,0.00028728
+pacifier,Related Products,blankets,0.000276507
+hair dryer,Brand,conair,0.00367917
+hair dryer,Brand,revlon,0.000900919
+hair dryer,Brand,remington,0.000885819
+hair dryer,Brand,elchim,0.000296951
+hair dryer,Brand,sedu,0.000241587
+hair dryer,Brand,vidal,0.000236554
+hair dryer,Brand,xtava,0.000236554
+hair dryer,Brand,sassoon,0.000231521
+hair dryer,Brand,onei,0.000191256
+hair dryer,Brand,infiniti,0.000166091
+hair dryer,Brand,jerdon,0.000140926
+hair dryer,Brand,marriott,0.000140926
+hair dryer,Brand,frieda,0.00013086
+hair dryer,Advantage,healthy,0.000130029
+hair dryer,Advantage,ionic,0.002183529
+hair dryer,character,hairdresser,0.000317083
+hair dryer,character,stylist,0.000845555
+hair dryer,character,hairstylist,0.000135893
+hair dryer,abnormal,shinier,0.000117026
+hair dryer,abnormal,hottest,0.00018119
+hair dryer,abnormal,tame,0.00011576
+hair dryer,abnormal,sparks,0.000180183
+hair dryer,Portable,folding,0.000312069
+hair dryer,Portable,featherweight,0.000211389
+hair dryer,Portable,hotel,0.000672435
+hair dryer,Portable,traveling,0.000313927
+hair dryer,Portable,retractable,0.000913917
+hair dryer,Curl effect,folds,0.000278633
+hair dryer,Curl effect,wavy,0.000729794
+hair dryer,Curl effect,curly,0.003693835
+hair dryer,Curl effect,shine,0.000234052
+hair dryer,Curl effect,straighten,0.000775703
+hair dryer,Curl effect,silky,0.000176468
+hair dryer,Curl effect,frizzies,0.000201323
+hair dryer,Product parts,diffuser,0.000904629
+hair dryer,Product parts,attachments,0.000704013
+hair dryer,Product parts,bonnet,0.000966348
+hair dryer,Product parts,blower,0.000347363
+hair dryer,Product parts,drier,0.000252627
+hair dryer,Product parts,hairdryers,0.000709662
+hair dryer,Product parts,tourmaline,0.000659331
+hair dryer,Product parts,rollers,0.000144889
+hair dryer,Product parts,hose,0.000367414
+hair dryer,Product parts,dyer,0.000206356
+hair dryer,Product parts,reel,0.000191256
+hair dryer,Product parts,blades,0.000186223
+hair dryer,Product parts,straightener,0.000176157
+hair dryer,Product parts,dryer's,0.000156025
+hair dryer,Product parts,nozzles,0.000145959
+hair dryer,Product parts,blowdryers,0.000120794
+hair dryer,Product parts,curlers,0.00011576
+hair dryer,Product parts,shaver,0.00011576
+hair dryer,Product parts,comb,0.000269345
+microwave,Use crowd,cooks,0.000339159
+microwave,Use crowd,builder,0.000175039
+microwave,Use crowd,vegies,0.000175039
+microwave,Use crowd,executive,0.000131279
+microwave,Use crowd,techs,0.000131279
+microwave,Heating food,popcorn,0.000839823
+microwave,Heating food,vegetables,0.00018573
+microwave,Heating food,potatoes,0.000153429
+microwave,Heating food,bread,0.000145354
+microwave,Heating food,leftovers,0.000145354
+microwave,Heating food,meals,0.000129204
+microwave,Heating food,expired,0.000121128
+microwave,Heating food,potato,0.000121128
+microwave,Heating food,casserole,0.000306319
+microwave,Heating food,crispy,0.000113053
+microwave,Heating food,bacon,0.000218799
+microwave,Heating food,halogen,0.000262559
+microwave,Heating food,broiler,0.000296168
+microwave,malfunction,beeps,0.000266482
+microwave,malfunction,beeping,0.000234182
+microwave,malfunction,repairman,0.000612638
+microwave,malfunction,repairs,0.000137279
+microwave,malfunction,diagnostic,0.000131279
+microwave,How to use,reheat,0.000492589
+microwave,How to use,bake,0.000177655
+microwave,How to use,fry,0.000177655
+microwave,How to use,grilling,0.000306319
+microwave,How to use,preheat,0.000113053
+microwave,Related Products,keypad,0.000897076
+microwave,Related Products,refrigerator,0.000226106
+microwave,Related Products,dishwasher,0.000137279
+microwave,Related Products,ovens,0.000459478
+microwave,Related Products,toaster,0.000145354
+microwave,Related Products,cooker,0.000131279
+microwave,Related Products,kitchenaid,0.000131279

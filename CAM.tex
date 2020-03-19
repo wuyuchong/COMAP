@@ -1,0 +1,1398 @@
+\documentclass[12pt,a4paper,]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\usepackage[left=1in,right=0.75in,top=1in,bottom=0.75in]{geometry}
+\usepackage{hyperref}
+\hypersetup{unicode=true,
+            pdftitle={Main Document},
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\usepackage{longtable,booktabs}
+\usepackage{graphicx}
+% grffile has become a legacy package: https://ctan.org/pkg/grffile
+\IfFileExists{grffile.sty}{%
+\usepackage{grffile}
+}{}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{5}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+%%% Use protect on footnotes to avoid problems with footnotes in titles
+\let\rmarkdownfootnote\footnote%
+\def\footnote{\protect\rmarkdownfootnote}
+
+%%% Change title format to be more compact
+\usepackage{titling}
+
+% Create subtitle command for use in maketitle
+\providecommand{\subtitle}[1]{
+  \posttitle{
+    \begin{center}\large#1\end{center}
+    }
+}
+
+\setlength{\droptitle}{-2em}
+
+  \title{Main Document}
+    \pretitle{\vspace{\droptitle}\centering\huge}
+  \posttitle{\par}
+    \author{}
+    \preauthor{}\postauthor{}
+    \date{}
+    \predate{}\postdate{}
+  
+\usepackage{indentfirst}
+\setlength{\parindent}{2em}
+\usepackage{fancyhdr}
+\usepackage{lipsum}
+\pagestyle{fancy}
+\lhead{Team \# 2016501}
+\rhead{Page \thepage}
+\cfoot{}
+
+\begin{document}
+\maketitle
+
+\newpage
+
+\setcounter{page}{1}
+
+\tableofcontents
+
+\newpage
+
+\hypertarget{letter-to-the-marketing-director}{%
+\section*{Letter to the Marketing
+Director}\label{letter-to-the-marketing-director}}
+\addcontentsline{toc}{section}{Letter to the Marketing Director}
+
+Dear Sunshine Company's Marketing Director:
+
+Thanks for inviting us! We have performed an analysis based on the data
+you gave. The following are our analysis results and reasons.
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{You might consider push the hair dryer and pacifier to the
+  market as soon as possible, but not microwave, which should be
+  published later.}
+\end{itemize}
+
+Judging from the ratings, the number of five-stars in the hair dryer and
+pacifier customer ratings is much higher than other stars.But the
+microwave has the lowest five star rating ratio.Microwaves are
+search-type products, which have high requirements on rigid technology.
+Customers pay more attention to the rigid indicators of the product, and
+it is more difficult to get five star rating than the other two
+products.
+
+As for time, the average score of hair dryer and pacifie has gradually
+increased with the passage of time, while the average score of microwave
+has gradually decreased first, reached a trough in 2012, and then
+gradually recovered. In general, the market performance of microwave
+ovens is not stable enough.The other types of products currently have a
+good development trend, and are gradually recognized by more and more
+customers.Therefore, hair dryer and pacifier should enter the market as
+soon as possible and occupy market share.
+
+But we need to more time to improve quality of microwave and find a good
+time to participate.
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.99\linewidth]{CAM_files/figure-latex/unnamed-chunk-3-1} 
+
+}
+
+\caption{Relationship between star rating and review date}\label{fig:unnamed-chunk-3}
+\end{figure}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Please keep an eye on improving product ratings in the early
+  stages of market entry.}
+\end{itemize}
+
+In the early stages of product release, customers cannot get product
+information from other channels, and they are bound to pay close
+attention to customer reviews. Through analysis, we found that the a
+growth in the number of 4 and 5 star ratings will increase the
+proportion of positive emotion words in the four categories of customer
+reviews, as shown in the figure.
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.99\linewidth]{CAM_files/figure-latex/unnamed-chunk-4-1} 
+
+}
+
+\caption{relationship between star rating and proportion of specific quality descriptors}\label{fig:unnamed-chunk-4}
+\end{figure}
+
+In the structural equation modeling, we find that an increase in
+positive sentiment words will significantly improve product reputation,
+which indicates the future success.
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Enhance specific products attributes to meet the customers
+  need.}
+\end{itemize}
+
+We find out the most important words about the three types of products
+through our model, indicating that customers are very concerned about
+these aspects. Doing well in these aspects will greatly improve the
+competitiveness of the product.
+
+\begin{figure}
+\includegraphics[width=0.99\linewidth]{CAM_files/figure-latex/unnamed-chunk-6-1} \caption{The most importent attributes in the reviews of three commodities}\label{fig:unnamed-chunk-6}
+\end{figure}
+
+It can be seen from the figure that the first three concerns are as
+follows:
+
+\textbf{Hair dryer:}
+
+\begin{itemize}
+\tightlist
+\item
+  brand: Customers are very concerned about the brand, so they need to
+  enhance brand image and brand awareness
+\item
+  product part: Focus on the quality of parts and improve product
+  quality
+\item
+  curl effect: Actively develop new technologies
+\end{itemize}
+
+\textbf{microwave:}
+
+\begin{itemize}
+\tightlist
+\item
+  heating food:Provides heating modes for different foods, making it
+  easy for users to heat various foods
+\item
+  related products :Co-organize promotional activities with
+  manufacturers of related products such as refrigerators
+\item
+  malfunction: Improve product quality and reduce the probability of
+  failure
+\end{itemize}
+
+\textbf{pacifier:}
+
+\begin{itemize}
+\tightlist
+\item
+  place: Places for use of pacifiers: Customers are very concerned about
+  whether pacifiers can be used by children such as newborn babies and
+  teeth changing stages.
+\item
+  related products: Can be sold with diapers and other products
+\item
+  character related: Breastfeeding women pay close attention to the
+  condition of pacifiers because they are about to wean their children.
+  This can improve the quality of pacifiers and place advertisements in
+  specific groups.
+\end{itemize}
+
+\newpage
+
+\hypertarget{introduction}{%
+\section{Introduction}\label{introduction}}
+
+\hypertarget{background}{%
+\subsection{Background}\label{background}}
+
+In recent years, online shopping has become an indispensable consumption
+mode in life. Online marketplaces such as Amazon have invested a
+considerable amount of resources in designing and improving the store
+interface, since online store interaction plays a signifificant role in
+the selection process. Heijden \& Verhagen (n.d.)
+
+Customers use online review systems to evaluate goods or services sold
+by merchants. The move towards a read-write Web and the ability to
+provide more relevant information to consumers on online marketplaces
+has been also demonstrated to inflfluence the product choice process in
+electronic markets. Godes, Ofek, \& Sarvary (n.d.)
+
+Online review reflects the needs and preferences of customers and
+influences their purchase intentions. Due to the rapid development of
+online shopping, the number of online reviews has surged. How to get
+useful information from online reviews to help businesses make optimal
+decisions has become more and more important.For example,reviews closer
+to consensus may be considered more helpful by potential consumers than
+those exhibiting extremes of opinion. Sergentanis \& Economopoulos
+(n.d.) Nikolaos Korfifiatis explored the qualitative or textual
+characteristics of online consumer reviews. Korfiatis \& Poulos (n.d.)
+
+This paper modeled and analyzed the variables in the review system,
+clarified the relationships between the variables, and screened out
+useful information, providing effective advice for Sunshine Company to
+enter the market.
+
+\hypertarget{our-work}{%
+\subsection{Our work}\label{our-work}}
+
+Explore the relationship between variables through regression models.
+
+Use regression models to study the impact of CLI and star rating on HR.
+
+Use the \$ TF-DIF \$ model and the customer utility function to
+calculate the true utility of the customer and use the test set to check
+the validity of the model.
+
+Use a hierarchical model to predict the product's reputation trend and
+find potentially successful and failing products.
+
+Make recommendations for Sunshine Company based on the above analysis,
+
+\hypertarget{notation-and-assumptions}{%
+\section{Notation and assumptions}\label{notation-and-assumptions}}
+
+\textbackslash{}begin\{table\}{[}htbp{]} \centering  \% 表居中
+\textbackslash{}begin\{tabular\}\{lccc\} \% \{lccc\}
+表示各列元素对齐方式，left-l,right-r,center-c \hline Symbol
+\&Significance\textbackslash{} \hline  \(HairRatej_{i}\) \&1 star ratio
+of a product before \(j^{th}\) customer \textbackslash{} \%
+\textbackslash{} 从这里开始写符号 \(HairSumj_{i}\) \&Total number of 1
+star ratings before \(j^{th}\) customer \textbackslash{} \% \&
+表示列的分隔线 \(rate_{i}\) \&A product's positive rate before
+\(i^{th}\) customer\textbackslash{} \(Sum_{i}\) \&The total emotion of a
+review\textbackslash{} \(HR\) \&The helpful votes ratio of a
+product\textbackslash{} \(CLI\) \&The parameter for readability of a
+review\textbackslash{} \(StarRating\) \&Star rating ofcustomers
+\textbackslash{} \(HelpfulVotes\) \&Helpful votes of a
+review\textbackslash{} \(Feature\in\mathbb{R}^{m}\times n}\) \&Feature
+matrix of a data set \(\operatorname{tf}(t, d)\) \&ithe frequency of
+\(t\) in \(d\)\textbackslash{} \$ \operatorname{idf}(t, D)\$ \&The
+measurement of a word importance \textbackslash{} \hline
+\textbackslash{}end\{tabular\}
+
+\caption{Nomenclature}
+
+\textbackslash{}end\{table\}
+
+To establish our models, we made the following assumptions:
+
+\begin{itemize}
+\item
+  \textbf{We assume that there is no difference between customers and
+  they share the same preferences for the same characteristics of the
+  product.} This allows us to extract user preferences based entirely on
+  the dataset. While this assumption is not entirely realistic, we
+  cannot consider the educational level of customers, different age
+  groups, and other factors that cause differences in customer awareness
+  and understanding of products in the data provided.
+\item
+  \textbf{To further reduce external uncertainties, we do not consider
+  the impact of changes in the market of alternative products and the
+  macroeconomic cycle on these three types of commodities.} This allows
+  our models to better study the characteristics of different products.
+  Furthermore, this assumption simplifies our analysis and allows us to
+  focus more on exploring the internal features of the dataset.
+\end{itemize}
+
+\hypertarget{relationship-between-variables}{%
+\section{Relationship between
+variables}\label{relationship-between-variables}}
+
+\hypertarget{descriptive-statistics}{%
+\subsection{Descriptive statistics}\label{descriptive-statistics}}
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.98\linewidth]{CAM_files/figure-latex/unnamed-chunk-7-1} 
+
+}
+
+\caption{Relationship between star rating and helpful votes rates or total votes}\label{fig:unnamed-chunk-7}
+\end{figure}
+
+From the figure 1 we can see: Because the review rating uses a discrete
+scale range from1 to 5 star rating, many customers who want to express
+their indifference will choose 3 star rating (middle option). For
+example, when they analyzed online reviews of books on Amazon Lee,
+Trimi, \& Yang (n.d.), they found that extreme ratings (1 star rating or
+5 star rating) is more likely to resonate than the indifference rating
+(about 3 star rating). In other words, reviews that has more emotionally
+polar (only referring to either positive or negative aspects) are
+considered more helpful and have a greater impact on customers. This is
+also confirmed by the number of votes of each star rating. We found that
+although the star ratings are not much different in recognition
+(usefulness in voting), but in terms of the total number of votes, 1
+star rating and 5 star rating are obviously more, which shows that
+customers pay more attention to extreme reviews.
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.99\linewidth]{CAM_files/figure-latex/unnamed-chunk-8-1} 
+
+}
+
+\caption{Percentage of star rating in different categories of customers}\label{fig:unnamed-chunk-8}
+\end{figure}
+
+From the perspective of vine, vine's purchase of products after trial is
+almost all 5 star ratings, while the proportion of 5 star ratings in
+non-vine's are significantly lower than vine. Because customers are
+invited to become Amazon Vine Voices based on the trust that they have
+earned in the Amazon community for writing accurate and insightful
+reviews. Therefore, the 5 star rating will be more.
+
+\hypertarget{reviews-that-triggered-by-a-specific-star-rating}{%
+\subsection{Reviews that triggered by a specific star
+rating}\label{reviews-that-triggered-by-a-specific-star-rating}}
+
+\hypertarget{research-ideas}{%
+\subsubsection{Research ideas}\label{research-ideas}}
+
+Actually, in Amazon Mall, most customers browse through the rating
+results of previous customers before they comment, and then write their
+own reviews.Each customer has a different feeling on the same product,
+and the rating will also be different. When the customer browses the
+previous reviews, it is likely to be affected by the number of ratings
+of 5 levels. Therefore, we quantify this impact by the proportion of 5
+ratings of all previous reviews that the customer viewed. So, how to
+measure the customer's review characteristics? In the text analysis, the
+emotion of the text is a commonly used text feature Ho \& E. (n.d.), so
+we use the total emotion of review body to indicate customer's review
+characteristics. Next, we use the function fitting to explore the
+relationship between the two variables.
+
+\hypertarget{model-construction-and-solution}{%
+\subsubsection{Model construction and
+solution}\label{model-construction-and-solution}}
+
+As the model of three types of products are in exactly the same way, we
+use the hair dryer as an example.
+
+Processing \emph{star rating} results of previous customers:
+
+\begin{itemize}
+\item
+  \textbf{Classify the products of the hair dryer.} At Amazon Mall, a
+  product may be sold in different stores, and customers can only
+  comment under the store where they buy a product, so we define the
+  same model products sold in the same store as one type. We classify
+  the products in product id.
+\item
+  \textbf{Screen every category of hair dryer.} There are 538 types of
+  hair dryers. Since the customer who first reviewed did not have any
+  previous scoring results as a reference, we first selected products
+  with at least 2 reviews.
+\item
+  \textbf{Calculate the rating results of the \(2^{nd}\) to \(n^{th}\)
+  customers browsing for each category of hair dryer.} In one category
+  of hair dryer products, the \(i^{th}\) customer is the research
+  object. Calculate the number and proportion of different ratings in
+  \(i-1\) previous reviews.
+\end{itemize}
+
+The 1 star rating ratio is as following, and other star rating ratio
+calculations are the same:
+
+\begin{equation}
+HairRate1_{i}=\frac{HairSum1_{i}}{i-1}
+\end{equation}
+
+Gao Baojun found that in a system that does not classify ratings,because
+of fewer negative reviews and higher search costs, customers are more
+likely to see positive reviews, so positive reviews have a greater
+impact on customers.Because Amazon does not directly categorize its
+ratings, and the number of 4 and 5 star ratings of hair dryer are much
+higher than other ratings. At this time, searching for low star ratings
+from many reviews will spent a lot of time, so the impact of high
+ratings is significant. We add the 4 and 5 star rating ratio in the
+customer reviews as the praise rate rate.The praise rate of the
+\(i^{th}\) customer is:
+
+\begin{equation}
+rate_{i}=HairRate4_{i}+HairRate5_{i}
+\end{equation}
+
+\begin{itemize}
+\item
+  Then calculate the total emotion in each review of \(2^{nd}\) to
+  \(n^{th}\) customers in each category.
+\item
+  Finally, we use function fitting to find the relationship between the
+  two variables. A linear regression was carried out with R. The
+  difference praise rate rate of the previous customer's rating per
+  customer viewing is an independent variable and the total emotion of
+  that customer's review is a dependent variable.
+\end{itemize}
+
+\begin{equation}
+log(Sum_{i})=Rate_{i}+C
+\end{equation}
+
+The fitting results of the three products are shown in the
+plot.\footnote{See Appendix for specific data.}
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.99\linewidth]{CAM_files/figure-latex/unnamed-chunk-9-1} 
+
+}
+
+\caption{Trend of total emotion with praise rate}\label{fig:unnamed-chunk-9}
+\end{figure}
+
+\begin{table}[!htbp] \centering 
+  \caption{Regression of Y on X for three products} 
+  \label{} 
+\begin{tabular}{@{\extracolsep{5pt}}lccc} 
+\\[-1.8ex]\hline 
+\hline \\[-1.8ex] 
+ & \multicolumn{3}{c}{\textit{Dependent variable:}} \\ 
+\cline{2-4} 
+\\[-1.8ex] & \multicolumn{3}{c}{log\_emotion} \\ 
+\\[-1.8ex] & (1) & (2) & (3)\\ 
+\hline \\[-1.8ex] 
+ rate & 1.222$^{***}$ & $-$0.262$^{**}$ & 5.048$^{***}$ \\ 
+  & (0.102) & (0.114) & (0.108) \\ 
+  & & & \\ 
+ Constant & 4.654$^{***}$ & 4.859$^{***}$ & 0.757$^{***}$ \\ 
+  & (0.078) & (0.075) & (0.087) \\ 
+  & & & \\ 
+\hline \\[-1.8ex] 
+Observations & 9,978 & 1,303 & 8,651 \\ 
+R$^{2}$ & 0.014 & 0.004 & 0.202 \\ 
+Adjusted R$^{2}$ & 0.014 & 0.003 & 0.202 \\ 
+Residual Std. Error & 1.230 (df = 9976) & 1.025 (df = 1301) & 1.383 (df = 8649) \\ 
+F Statistic & 143.482$^{***}$ & 5.298$^{**}$ & 2,192.962$^{***}$ \\ 
+\hline 
+\hline \\[-1.8ex] 
+\textit{Note:}  & \multicolumn{3}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\ 
+\end{tabular} 
+\end{table}
+
+The trend of the total emotion changes of the three products is
+different, due to the different types of products. In online shopping,
+products are classified as search-type products and experiential
+products. Search-type products can obtain information about quality
+before using. Experiential products must be used before assessing
+product quality.The impact of different product types of ratings
+varies.Pacifier is an experiential product. It must be used before
+evaluating product quality, so it is subjective and customers are more
+likely to be affected by other customers' ratings. As the praise rate
+increases, customers are significant influenced and more willing to
+express their feelings about a product. Microwave is a search-type
+product. Customers can accurately evaluate the quality through specific
+parameters before purchasing. It is so objective that customers are not
+easily affected by other customers' ratings,so it is almost a horizontal
+straight line. The type of the hair dryer is between the microwave and
+pacifier, so the praise rate of other customers will have a certain
+impact on the total emotion of the review.Of course, the impact is lower
+than that of pacifier.
+
+\hypertarget{relationship-between-star-rating-and-specific-emotion-words}{%
+\subsection{\texorpdfstring{Relationship between \emph{Star rating} and
+specific emotion
+words}{Relationship between Star rating and specific emotion words}}\label{relationship-between-star-rating-and-specific-emotion-words}}
+
+We explored whether descriptive words of specific nature in the review
+would be highly relevant to the rating. First of all, we will divide
+comments into words and find the content of word segmentation . And then
+we calculate the sum of joy,trust ,surprise and anticipation emotions in
+each review. Furthermore, the ratio of the number of these four types of
+emotional words in each review to the total number of emotional words in
+that review is taken as independent variable, and the rating of each
+comment is taken as dependent variable.We draw figures of three data
+sets.
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.99\linewidth]{CAM_files/figure-latex/unnamed-chunk-10-1} 
+
+}
+
+\caption{relationship between star rating and proportion of specific quality descriptors}\label{fig:unnamed-chunk-10}
+\end{figure}
+
+As shown in the figure, the smooth fitting curve has a clear trend. As
+the proportion of these four emotions increased, so did the rating.
+These four types of emotions are positive emotions, so the more such
+emotions in the reviews indicate that customers are satisfied with the
+product, and ratings are higer too.
+
+\begin{table}[!htbp] \centering 
+  \caption{Regression of star rating on proportion of specific quality descriptors for three products} 
+  \label{} 
+\begin{tabular}{@{\extracolsep{5pt}}lccc} 
+\\[-1.8ex]\hline 
+\hline \\[-1.8ex] 
+ & \multicolumn{3}{c}{\textit{Dependent variable:}} \\ 
+\cline{2-4} 
+\\[-1.8ex] & \multicolumn{3}{c}{star\_rating} \\ 
+\\[-1.8ex] & (1) & (2) & (3)\\ 
+\hline \\[-1.8ex] 
+ proportion & 2.108$^{***}$ & 2.948$^{***}$ & 1.615$^{***}$ \\ 
+  & (0.087) & (0.279) & (0.063) \\ 
+  & & & \\ 
+ Constant & 3.202$^{***}$ & 2.061$^{***}$ & 3.553$^{***}$ \\ 
+  & (0.041) & (0.131) & (0.031) \\ 
+  & & & \\ 
+\hline \\[-1.8ex] 
+Observations & 7,988 & 1,195 & 14,540 \\ 
+R$^{2}$ & 0.069 & 0.086 & 0.043 \\ 
+Adjusted R$^{2}$ & 0.069 & 0.085 & 0.043 \\ 
+Residual Std. Error & 1.246 (df = 7986) & 1.594 (df = 1193) & 1.149 (df = 14538) \\ 
+F Statistic & 590.479$^{***}$ & 112.051$^{***}$  & 657.771$^{***}$  \\ 
+\hline 
+\hline \\[-1.8ex] 
+\textit{Note:}  & \multicolumn{3}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\ 
+\end{tabular} 
+\end{table}
+
+We then perform linear regression on the three datasets respectively. As
+we can see, since the rating is integer, the \(R^{2}\) of the model is
+quite small. But the coefficients obtained by fitting are very
+significant, and passed the F-test test.
+
+\hypertarget{identify-useful-reviews}{%
+\section{Identify useful reviews}\label{identify-useful-reviews}}
+
+\hypertarget{research-ideas-1}{%
+\subsection{Research ideas}\label{research-ideas-1}}
+
+A text feature analysis of the review content is not limited to ratings
+and text length. Usually when analyzing reviews, it is difficult to
+analyze from the content, but we introduced CLI, total emotion, and
+product keyword analysis, and conducted a full analysis about text
+readability, emotional characteristics, and text keywords.
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.6\linewidth]{fig1} 
+
+}
+
+\caption{Identify useful comments}\label{fig:unnamed-chunk-11}
+\end{figure}
+
+There is a lot of information in the online review system of online
+store, and the online store owners often want to analyze the information
+in the online review system to know more about the customers and adjust
+their products to promote the increase of sales volume. However, many
+reviews have no impact on customers, and we call it useless evaluation.
+Some reviews will have a great impact on customers, and then affect
+sales volume, called useful evaluation.
+
+Only by finding useful evaluation and analyzing it can Sunshine Company
+accurately grasp customer preferences and make correct adjustment
+directions in time. When new products enter the market, reviews are
+published recently and need some time to be viewed by people ,so their
+HRs are not accurate enough. However, in order to improve the product as
+soon as possible,without knowing the accurate HR, we should find useful
+comments accurately by analyzing some characteristics of the reviews. In
+this way, Sunshine Company can analyze and make optimal decisions as
+soon as possible.
+
+\hypertarget{model-establishing}{%
+\subsection{Model establishing}\label{model-establishing}}
+
+In order to measure the usefulness of a review, we measure it by the
+helpful votes ratio of goods :
+
+\begin{equation}
+HR=\frac{HelpfulVotes}{TotalVotes}
+\end{equation}
+
+Informativeness is a feature of reviews. We use the CLI to measure the
+amount of information contained in each review and accurately measure
+the information status of each review.The Coleman--Liau Index Coleman \&
+Liau (n.d.) has been developed specififically for machine-based scoring.
+The following formula describes the Coleman--Liau index:
+
+\begin{equation}
+CLI=5.89\times\frac{characters}{words}+\frac{sentences}{word}-15.8
+\end{equation}
+
+The CLI indicates the readability of the reviews. The smaller the CLI,
+the simpler and easier to understand the review, and the higher the CLI,
+the more complex the review. Combined with star ratings, through the
+relationship between these variables, useful reviews can be effectively
+identified to help Sunshine Company to make judgments. We assume that
+CLI and rating are not simple linear relation.So we introduce quadratic
+term in the regression model.
+
+\begin{equation}
+HR=\beta_{1}CLI+\beta_{2}CLI^{2}+\beta_{3}StarRating+\beta_{4}StarRating^{2}+C
+\end{equation}
+
+\hypertarget{model-result}{%
+\subsection{Model Result}\label{model-result}}
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.6\linewidth]{3D} 
+
+}
+
+\caption{Relationship between StarRating, CLI and HR}\label{fig:unnamed-chunk-12}
+\end{figure}
+
+\begin{longtable}[]{@{}lrrrr@{}}
+\caption{Regression Coefficients for the regression
+model}\tabularnewline
+\toprule
+& Estimate & Std. Error & t value &
+Pr(\textgreater{}\textbar{}t\textbar{})\tabularnewline
+\midrule
+\endfirsthead
+\toprule
+& Estimate & Std. Error & t value &
+Pr(\textgreater{}\textbar{}t\textbar{})\tabularnewline
+\midrule
+\endhead
+(Intercept) & 0.68 & 0.03 & 24.75 & 0.00\tabularnewline
+CLI & 0.00 & 0.00 & -2.45 & 0.01\tabularnewline
+CLI\_square & 0.00 & 0.00 & -3.40 & 0.00\tabularnewline
+star\_rating & -0.03 & 0.02 & -1.48 & 0.14\tabularnewline
+star\_rating\_square & 0.01 & 0.00 & 3.03 & 0.00\tabularnewline
+\bottomrule
+\end{longtable}
+
+The regression results are shown in the table. The quadratic terms of
+the CLI and StarRating's coefficients pass the hypothesis test and were
+significantly different from 0, indicating that the CLI and StarRating
+have a significant impact on HR. The absolute value of the quadratic
+term coefficient of StarRating is larger than that of CLI.
+
+With the change of StarRating, HR will change more obviously. It can
+also be seen from the figure that the HR is larger at 1 and 5 star
+rating and smaller at 3 star rating, so the reviews corresponding to the
+1 and 5 star ratings are more likely to be useful reviews.
+
+With the increase of the CLI, the HR increases first and then decreases.
+When the review is too simple, it contains less information and the
+review is not very useful.When the review contains too complicated
+information, it is difficult for customers to process, which will also
+reduce the usefulness of the review. But the coefficient of the
+quadratic terms of the CLI is too small, the change trend is
+slow.Therefore, it is only when the reviews are extremely simple or
+extremely complex that they can lead to a significant decrease in the
+usefulness of the reviews.
+
+\hypertarget{gd-sgd-and-neural-network}{%
+\section{GD, SGD and Neural Network}\label{gd-sgd-and-neural-network}}
+
+\hypertarget{logit-model-based-on-gd-and-sgd-optimization-methods}{%
+\subsection{Logit model based on GD and SGD optimization
+methods}\label{logit-model-based-on-gd-and-sgd-optimization-methods}}
+
+\hypertarget{model-establishing-1}{%
+\subsubsection{Model establishing}\label{model-establishing-1}}
+
+Suppose we have independent training samples \{(x1, y1), (x2, y2),
+\ldots{}, (xn, yn)\}, y = \{0, 1\}. The probability that each observed
+sample (xi, yi) occurs is:
+
+\begin{equation}
+P\left(\mathrm{y}_{i}, \mathrm{x}_{i}\right)=P\left(\mathrm{y}_{i}=1 | \mathrm{x}_{i}\right)^{y_{i}}\left(1-P\left(\mathrm{y}_{i}=1 | \mathrm{x}_{i}\right)\right)^{1-y_{i}}
+\end{equation}
+
+Then the likelihood function for our entire sample set, in which there
+are n independent samples:
+
+\begin{equation}
+L(\theta)=\prod P\left(\mathrm{y}_{i}=1 | \mathrm{x}_{i}\right)^{y_{i}}\left(1-P\left(\mathrm{y}_{i}=1 | \mathrm{x}_{i}\right)\right)^{1-y_{i}}
+\end{equation}
+
+Then, the maximum likelihood function is called \textbf{cost
+function}.\footnote{The key of applying maximum likelihood method is to
+  find the value \(\theta\) of the coefficient that maximizes the
+  likelihood function in the model.}
+
+\hypertarget{model-solving}{%
+\subsubsection{Model solving}\label{model-solving}}
+
+The derivative of \(L(\theta)\) with respect to \(\theta\) is:
+
+\begin{equation}
+\frac{\partial L(\theta)}{\partial \theta}=\sum_{i=1}^{n} y_{i} x_{i}-\sum_{i}^{n} \frac{e^{\theta^{T} x_{i}}}{1+e^{\theta_{x_{i}}}} x_{i}=\sum_{i=1}^{n}\left(y_{i}-\sigma\left(\theta^{T} x_{i}\right)\right) x_{i}
+\end{equation}
+
+For this function, we can \textbf{not} easily find the derivatives. So
+we use the properties of the gradient descent method Baobin \& Yuxia
+(2011) , then:
+
+\begin{equation}
+\theta^{t+1}=\theta^{t}-\alpha \frac{\partial L(\theta)}{\partial \theta}=\theta^{t}-\alpha \sum_{i=1}^{n}\left(y_{i}-\sigma\left(\theta^{T} x_{i}\right)\right) x_{j}
+\end{equation}
+
+We normalize each variable before training. Then, we set the learning
+rate to be gradually decreasing for training.
+
+\begin{equation}
+\frac{\partial L(\theta)}{\partial \theta}=\sum_{i=1}^{n} y_{i} x_{i}-\sum_{i}^{n} \frac{e^{\theta^{T} x_{i}}}{1+e^{\theta_{x_{i}}}} x_{i}=\sum_{i=1}^{n}\left(y_{i}-\sigma\left(\theta^{T} x_{i}\right)\right) x_{i}
+\end{equation}
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.4\linewidth]{CAM_files/figure-latex/unnamed-chunk-15-1} \includegraphics[width=0.4\linewidth]{CAM_files/figure-latex/unnamed-chunk-15-2} 
+
+}
+
+\caption{Decreasing learning rate function and Sigmoid function}\label{fig:unnamed-chunk-15}
+\end{figure}
+
+\hypertarget{neural-network-model-based-on-sgd-optimization-method}{%
+\subsection{Neural network model based on SGD optimization
+method}\label{neural-network-model-based-on-sgd-optimization-method}}
+
+\hypertarget{model-establishing-2}{%
+\subsubsection{Model establishing}\label{model-establishing-2}}
+
+\hypertarget{neurons}{%
+\paragraph{Neurons}\label{neurons}}
+
+A neuron is the basic unit of a neural network. Chua \& Yang (1988) The
+neuron first takes input and then performs some mathematical operations
+before producing an output. Zhenquan \& Dongsheng (1990)
+
+For a two-input neuron, the output steps are: First multiply the two
+inputs by the weights. Add the two results and add an bias. Finally
+process them through the activation function to get the output.
+
+\begin{equation}
+y = f(x1 × w1 + x2 × w2 + b)
+\end{equation}
+
+We choose the sigmoid function as the activation function of the neural
+network.
+
+\begin{equation}
+S(x) = \frac{1}{1 + e^{-x}}
+\end{equation}
+
+\begin{equation}
+S'(x) = \frac{e^{-x}}{(1 + e^{-x})^2} = S(x)(1-S(x))
+\end{equation}
+
+\hypertarget{neural-networks}{%
+\paragraph{Neural Networks}\label{neural-networks}}
+
+Considering the limitation of the computing resources, we build a simple
+neural network. It contains 2 inputs, a hidden layer with 2 neurons (h1
+and h2) , and an output layer (o1) with 1 neuron. Pingfan (2005)
+
+\hypertarget{feedforward-and-loss}{%
+\paragraph{Feedforward and Loss}\label{feedforward-and-loss}}
+
+The process of passing the input of a neuron forward to obtain the
+output is called feedforward.
+
+Before training a neural network, we need to have a standard definition
+so that we can make improvements. We use the mean square error (MSE) to
+define the loss:
+
+\begin{equation}
+MSE = \frac{1}{n} \sum_{i=1}^n (y_{true} - y_{pred}) 
+\end{equation}
+
+We only use one sample at a time during training, so the loss function
+is:
+
+\begin{equation}
+ \begin{aligned} \mathrm{MSE} &=\frac{1}{1} \sum_{i=1}^{1}\left(y_{t r u e}-y_{p r e d}\right)^{2} \\ &=\left(y_{t r u e}-y_{p r e d}\right)^{2} \\ &=\left(1-y_{p r e d}\right)^{2} \end{aligned} 
+\end{equation}
+
+\hypertarget{model-solving-1}{%
+\subsubsection{Model solving}\label{model-solving-1}}
+
+\hypertarget{training-neural-network}{%
+\paragraph{Training neural network}\label{training-neural-network}}
+
+The process of training a neural network is to minimize the loss. The
+lower the loss, the better the prediction result.
+
+Since the predicted value is calculated by a series of network weights
+and biases, the loss function is actually a multivariate function
+depending on multiple weights and biases:
+
+\begin{equation}
+L\left(w_{1}, w_{2}, w_{3}, w_{4}, w_{5}, w_{6}, b_{1}, b_{2}, b_{3}\right)
+\end{equation}
+
+Derivative chain rule: (take w1 as an example)
+
+\begin{equation}
+\frac{\partial L}{\partial w_{1}}=\frac{\partial L}{\partial y_{p r e d}} * \frac{\partial y_{p r e d}}{\partial h_{1}} * \frac{\partial h_{1}}{\partial w_{1}}
+\end{equation}
+
+This system using backward calculation of partial derivatives is called
+reverse conduction.
+
+\hypertarget{sgd-optimization-method}{%
+\paragraph{SGD optimization method}\label{sgd-optimization-method}}
+
+We use the stochastic gradient descent (SGD) optimization algorithm
+Gongpeng, Meng, \& Changyong (2018) based on convolutional neural
+networks to gradually optimize the weight \(w\) and bias \(b\) so that
+the loss function will be slowly decreased, thereby improving our neural
+network. Take \(w_1\) as an example:
+
+\begin{equation}
+w_{1} \leftarrow w_{1}-\eta \frac{\partial L}{\partial w_{1}}
+\end{equation}
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.8\linewidth]{Schematic diagram of the built neural network} 
+
+}
+
+\caption{Schematic diagram of the built neural network}\label{fig:unnamed-chunk-16}
+\end{figure}
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.6\linewidth]{Variation of MSE with the number of iterations} 
+
+}
+
+\caption{Variation of MSE with the number of iterations}\label{fig:unnamed-chunk-17}
+\end{figure}
+
+\hypertarget{initialization-of-weight}{%
+\paragraph{Initialization of weight}\label{initialization-of-weight}}
+
+The initialization of the weights and biases of the nodes in the neural
+network follows the standard normal distribution.
+
+\begin{equation}
+Weight_i,Bias_i \sim N(0,1)
+\end{equation}
+
+\hypertarget{model-results}{%
+\subsubsection{Model results}\label{model-results}}
+
+From the results, as the number of iterations increases, the mean square
+error first decreases rapidly, and then stabilizes.
+
+\hypertarget{cross-validation}{%
+\subsubsection{Cross validation}\label{cross-validation}}
+
+We use \emph{total emotion} and \emph{square of star rating} to predict
+\emph{helpful rate}.
+
+Using systematic sampling, we divided the data set into three groups for
+cross-validation.\footnote{Time consuming differences due to computer
+  hardware levels and temperature conditions. For reference only}
+
+\begin{longtable}[]{@{}lrrr@{}}
+\caption{Time Consuming (s)}\tabularnewline
+\toprule
+Method & Cross Validation 1 & Cross Validation 2 & Cross Validation
+3\tabularnewline
+\midrule
+\endfirsthead
+\toprule
+Method & Cross Validation 1 & Cross Validation 2 & Cross Validation
+3\tabularnewline
+\midrule
+\endhead
+logit\_GD & 9.47 & 9.41 & 8.39\tabularnewline
+logit\_SGD & 4.50 & 4.46 & 4.11\tabularnewline
+Neural Network & 170.13 & 144.55 & 152.11\tabularnewline
+\bottomrule
+\end{longtable}
+
+\begin{longtable}[]{@{}lrrr@{}}
+\caption{Correct Rate}\tabularnewline
+\toprule
+Method & Cross Validation 1 & Cross Validation 2 & Cross Validation
+3\tabularnewline
+\midrule
+\endfirsthead
+\toprule
+Method & Cross Validation 1 & Cross Validation 2 & Cross Validation
+3\tabularnewline
+\midrule
+\endhead
+logit\_GD & 0.72 & 0.73 & 0.73\tabularnewline
+logit\_SGD & 0.72 & 0.72 & 0.72\tabularnewline
+Neural Network & 0.74 & 0.72 & 0.74\tabularnewline
+\bottomrule
+\end{longtable}
+
+\hypertarget{track-the-real-utility-of-customers}{%
+\section{Track the real utility of
+customers}\label{track-the-real-utility-of-customers}}
+
+\hypertarget{research-ideas-2}{%
+\subsection{Research ideas}\label{research-ideas-2}}
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.6\linewidth]{fig2} 
+
+}
+
+\caption{research idea of tracking the real utility}\label{fig:unnamed-chunk-20}
+\end{figure}
+
+Rating reflects the utility of the customer. However, rating standards
+vary from person to person. For example, some people think that 3 stars
+represent average satisfaction, while others think that 3 stars can
+shows their strong dissatisfaction. It can be seen that customers with
+different utility share the same rating based on different scoring
+criteria, and the information indicated by ratings and reviews is not
+completely consistent. Rating may cause deviations in the utility
+measurement due to the different personal rating standards of the
+customers and the discrete scale of scoring. Therefore, by establishing
+a suitable model and using the information in reviews to calculate their
+real utility, Sunshine Company can analyze it. Our model's principle is
+to quantify the information contained in the review and return to a
+score. And with the multiple regression, we can comprehensively consider
+the rating standards of all customers and build a market preference
+patterns. And then recalculate the corresponding score of each review.
+Finally, we match score with customer rating to ensure the correctness
+of our model.And the score reflect customers true attitude toward the
+product.
+
+We will first build a model that extracts product features based on
+customer reviews of the product, and then build a market utility
+measurement model based on the extracted features.
+
+\hypertarget{feature-extraction}{%
+\subsection{Feature extraction}\label{feature-extraction}}
+
+In order to take into account all the factors affecting the utility in
+the review, we use tf-idf model to extract the features of the review.
+It's a numerical statistic that is intended to reflect how important a
+word is to a review in our dataset. And then we can extract the feature
+matrix.
+
+\(Feature\in\mathbb{R}^{m\times n}\) can be summarized as follows:
+
+\begin{equation}
+\operatorname{tfidf}(t, d, D)=TF \cdot IDF \cdot I_{d\in nrc}
+\end{equation}
+
+Now, we will look at what each of these terms represent.
+
+\hypertarget{calculate-tf}{%
+\subsubsection{Calculate TF}\label{calculate-tf}}
+
+\(TF\) is an abbreviation for ''Term Frequency''. \(TF\) indicates how
+often \(t\) appears in \(d\). Here we assume that ``review\_body'' is
+the detailed discription of ``review\_head'', thus we extract review
+features only in ``review\_body''. Meanwhile, the ``review'' mentioned
+in the following refers to ``review\_body'' by default.
+
+A larger \(TF\) means more occurences of t in the review d.
+
+\hypertarget{calculate-idf}{%
+\subsubsection{Calculate IDF}\label{calculate-idf}}
+
+\(IDF\) is the abbreviation for ''Inverse document frequency". It's a
+measure of how much information the word provides in a review. We
+calculate \(IDF\) as:
+
+\begin{equation}
+IDF_{i,j}=\log \frac{\left\vert D \right\vert}{\left\vert\{ j,t_i\in j \}\right\vert}
+\end{equation}
+
+\(D\) shows a set including all reviews in a data set. \(N\) indicates
+the total number of reviews included by \(D\). From the formula we can
+see that when a word in one review appears more often in other reviews,
+\(IDF\) will become smaller, which means that the word is more common.
+
+\(TF \cdot IDF\) measures the weight of each word in a review, so that
+each reviews can be represented by a vector.
+
+\hypertarget{illustrative-function}{%
+\subsubsection{Illustrative Function}\label{illustrative-function}}
+
+This is an illustrative function. \(I_{d\in nrc}\) is given by:
+
+\begin{equation}
+I_{d\in nrc}=\left\{\begin{array}{ll}
+    1 & , d \in nrc \\
+    0 & , d \notin nre
+    \end{array}\right.
+\end{equation}
+
+\(nrc\) refers to ``NRC Emotion Lexicon''. It's a list of English words
+and their associations with eight basic emotions (anger, fear,
+anticipation, trust, surprise, sadness, joy, and disgust) and two
+sentiments (negative and positive). Here we assume that sentimental
+words are the key factor that affects the customer's rating, which will
+help us avoid the interference of meaningless words on review features.
+It makes sense because the evaluation of the product can not avoid using
+the emotional words such as ``good'' or ``bad''.
+
+In fact, as we solve our model, we find that this assumption does not
+result in the component elements of the vector representing the reviews
+features to be all 0, which means that all effective reviews carry at
+least one word in nrc. We also verified this in the other two data sets
+\emph{hair\_dryer.tsv} and \emph{microwave.tsv}
+
+\hypertarget{construction-of-customer-utility-function}{%
+\subsection{Construction of Customer Utility
+Function}\label{construction-of-customer-utility-function}}
+
+We believe that the utility of a product depends on the customer's
+personal preference and the characteristics of the product. Thus, our
+model for customer utility is summarized as:
+
+\begin{equation}
+u(s, c)= score (Content (s), ContentBasedProfile(c))
+\end{equation}
+
+\(Content(s)\) is a matrix describing product characteristics based on
+content. That is \(Freature\in\mathbb{R}^{m\times n}\), calculated in
+the previous model. \(ContentBasedProfile(c)\) is a measure of customer
+preference. Based on our customer homogeneity assumption that customer
+preference patterns represents market preference partterns. So we define
+the vector representing market preference as
+\(Preference\in\mathbb{R}^{n\times 1}\).Customer utility can be further
+expressed as:
+
+\begin{equation}
+U= Feature \cdot Preference 
+\end{equation}
+
+We consider the star rating given by customers in the data set as a
+reflection of the customer's utility. The significance of this is to let
+our model learn the characteristics of different ratings from reviews,
+In this way, both \$ U \$ and \$ Feature \$ are known, and the
+customer's customer preference , which is also referred to the market
+preference, can be quantified by the least square method.
+
+\hypertarget{model-result-1}{%
+\subsection{Model Result}\label{model-result-1}}
+
+We split the data into training and testing sets according to a 4: 1
+ratio. Take ``pacifier.tsv'' as an example. Before extracting the
+reviews feature, we clean the data set by dropping two rows with null
+value.Then wr calculate \(Feature\) matrix .The shape of the \(Feature\)
+matrix is (18937, 16413), of which there are 2366 words in \(nrc\).
+Delete the rows with all 0. The shape of the matrix has not changed.
+This validates our hypothesis that sentimental words vocabulary is the
+key factor affecting ratings. The key words we have selected through
+feature extraction are shown in the figure.
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.99\linewidth]{CAM_files/figure-latex/unnamed-chunk-21-1} 
+
+}
+
+\caption{The most important words in the review of three products}\label{fig:unnamed-chunk-21}
+\end{figure}
+
+Next, we use the least squares regression on the training set to obtain
+the market preference, and the value of RMSE is 1.27.
+
+To further explore the effectiveness of the model, we predict the real
+utility of customers based on the characteristics of the reviews on the
+test set, and calculate the matching degree of the model on the test
+set. As the star rating set is considered to be a discrete variable, we
+think the error is acceptable within 1 star. The matching degree is
+85.35\% on test set.
+
+In dataset \emph{hair\_dryer} and \emph{microwave}, it is also found
+that the \(Feature\) matrix has no row elements that are all 0. The RMSE
+of the model is 1.50 and 2.14, and the matching degrees are 85.35\% and
+77.09\%, respectively.
+
+The real utility obtained by our model is close to the ratings of most
+customers, which shows that the market rating standards constructed by
+this model are indeed a comprehensive processing and averaging result of
+all customer rating standards, and can represent the overall rating
+standards of customers. At the same time, about 20\% of customers don't
+match the real utility, indicating that this customer 's rating standard
+is seriously deviating from the market rating standard, and the rating
+is inaccurate. It better reflects the relationship between product
+characteristics and the user's real utility.
+
+\hypertarget{product-reputation-and-potential-successful-product}{%
+\section{Product Reputation and Potential Successful
+Product}\label{product-reputation-and-potential-successful-product}}
+
+\hypertarget{model-establishing-3}{%
+\subsection{Model Establishing}\label{model-establishing-3}}
+
+We want to measure reputation, which is difficult since it can not be
+seen or captured using a single method. We decide to measure this latent
+variable ``reputation'' by two new variables. These new variables have
+the advantage of being more clearly defifined. And then, we add another
+two factors to be the regressors.
+
+\hypertarget{model-solving-2}{%
+\subsection{Model Solving}\label{model-solving-2}}
+
+\begin{longtable}[]{@{}lll@{}}
+\caption{Latent variables and Measurements}\tabularnewline
+\toprule
+latent & measurement & explanation\tabularnewline
+\midrule
+\endfirsthead
+\toprule
+latent & measurement & explanation\tabularnewline
+\midrule
+\endhead
+reputation & dif\_star & Increase of mean star rating every
+year\tabularnewline
+& dif\_review & Increase of number of reviews every year\tabularnewline
+review & emotion & Total emotion\tabularnewline
+& CLI & Readability of text\tabularnewline
+& positive & Number of positive emotion words\tabularnewline
+mark & star & Actual ratings in the dataset\tabularnewline
+& score & Quantitative real utility from reviews\tabularnewline
+type of customer & vine & Yes / No Amazon vine member\tabularnewline
+& verified & Yes / No Verified purchase\tabularnewline
+\bottomrule
+\end{longtable}
+
+Using factor analysis, we try to solve a problem: there are variables
+that we want to measure, but we can not directly observe them, which are
+called latent variables. These can typically be rather complex
+variables, such as quality of life or general mental ability. Structural
+equation model (SEM) is a tool that can be used to try to measure these
+latent variables. We try to explain the variation in the unexplained,
+latent variables (factors), using observed, correlated variables.
+
+Measurement part: - Factor model for the endogenous variables - Factor
+model for the exogenous variables
+
+Structural part: - Model implied by theory
+
+\hypertarget{measurement-part}{%
+\subsubsection{Measurement part}\label{measurement-part}}
+
+Factor model for the endogenous variables - y as a function of latent
+variables \(\eta\) :
+
+\(y_q = \alpha^{y}_{q1 \eta_{1}} + \alpha^{y}_{q2 \eta_{2}} + ... \alpha^{y}_{qs \eta_{s}} + \epsilon_{q}\)
+
+Factor model for the endogenous variables - x as a function of latent
+variables \(\xi\) :
+
+\(y_q = \alpha^{x}_{p1 \xi_{1}} + \alpha^{x}_{p2 \xi_{2}} + ... \alpha^{x}_{ps \xi_{s}} + \epsilon_{p}\)
+
+Interpretation for factor loadings - standardize V(yi) = 1 and
+V(\(\eta\)) = 1, then the OLS estimator \begin{equation}
+\hat{\alpha} = (Cov(y, \eta)/V(\eta)) = \rho_{y, \eta}
+\end{equation} and
+
+\begin{equation}
+V(\eta) = \hat{\alpha}^2 V(\eta) + V(\eta)
+\end{equation} \begin{equation}
+1 = \hat{\alpha}^2 + V(\eta)
+\end{equation}
+
+\(\hat{\alpha}^2\) is the proportion of the variance of y originating
+from the factor \(\eta\) and \(1-\hat{\alpha}^2\) from the error.
+
+\hypertarget{structural-part}{%
+\subsubsection{Structural Part}\label{structural-part}}
+
+The structural part consists of a regression model for each dependent
+latent variable as a function of: - Other dependent latent variables,
+endogenous, \(\eta\) - Latent exogenous variables, \(\xi\)
+
+\begin{equation}
+\eta_{s} = \beta_{s1}\eta_{1} + \beta_{s2}\eta_{2} + ... + \beta_{ss-1}\eta_{s-1} + \gamma_{s1}\xi_{1} + \gamma_{s2}\xi_{2} + \gamma_{sr}\xi_{r} + \zeta_{s}
+\end{equation}
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.8\linewidth]{sem} 
+
+}
+
+\caption{Structrual Equation Model Outcome}\label{fig:unnamed-chunk-23}
+\end{figure}
+
+It can be seen from the figure that the circle represents the factor and
+the square represents the measurement index. The number on the line is
+the regression coefficient. (The number is 0 because the coefficient is
+small and not shown intact.) . It can be seen from the figure that the
+more positive emotion words in the review, the higher the product's
+reputation. The higher the customer 's true utility in the rating, the
+higher the customer 's satisfaction with the product and the higher the
+product 's reputation. Among the customer types, the more customers of
+the vertified type indicate that many customers are willing to purchase
+the product, which is a recognition of the product quality and an
+increase in reduction. The decrease of positive sentiment words in the
+product reviews, the decrease of customer's true utility, and the
+decrease number of customers of the vertified type indicate that the
+reduction of such products will gradually decrease.
+
+\hypertarget{product-forecast}{%
+\subsection{Product Forecast}\label{product-forecast}}
+
+From the above analysis, it can be known that the CLI in each type of
+product reviews, the number of positive sentiment words, the true
+utility, and proportion of customers belonging to the verified category
+have a significant impact on the product 's reputation .The product 's
+reputation continues to increase.Have development potential. It shows
+that this product has development potential and is a potential
+successful product. Otherwise, it is a potential failed product.
+Therefore, attention should be paid to the changes in these four
+indicators. It is predicted whether the number of reviews of the product
+will increase or decrease in the next year, and based on this, it is
+judged whether the product's reputation is increasing or decreasing. At
+the same time, we believe that products that increase in the next year
+can be regarded as potential successful products, and products that
+decrease in the next year can be regarded as potential failure products.
+
+\hypertarget{strengths-and-weaknessess}{%
+\section{Strengths and Weaknessess}\label{strengths-and-weaknessess}}
+
+\hypertarget{strengths}{%
+\subsection{Strengths}\label{strengths}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  \textbf{The analysis of the review content is not limited to ratings
+  and text length.} We introduced CLI, total emotion, and product
+  keyword analysis, and conducted a full analysis in terms of text
+  readability, emotional characteristics, and text keywords.
+\item
+  \textbf{The models are rich and the effects are significant.} We not
+  only introduce basic models such as regression, structural equation
+  models, etc., but also construct our own models to calculate the real
+  utility, and analyze the data more accurately from multiple angles.
+\end{enumerate}
+
+\hypertarget{weaknessess}{%
+\subsection{Weaknessess}\label{weaknessess}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  In the analysis of the data, the control variables of the regression
+  were not considered comprehensively. Multiple regression models should
+  be tried to select better results.
+\end{enumerate}
+
+\hypertarget{references}{%
+\section*{References}\label{references}}
+\addcontentsline{toc}{section}{References}
+
+\hypertarget{refs}{}
+\leavevmode\hypertarget{ref-WangBaoBin}{}%
+Baobin, W., \& Yuxia, W. 2011. Some properties of stochastic gradient
+descent. \emph{\textbf{Journal of Mathematics}}, 31(6): 1041--1044.
+
+\leavevmode\hypertarget{ref-Chua1988Cellular}{}%
+Chua, L. O., \& Yang, L. 1988. Cellular neural networks:Theory. In
+\emph{\textbf{IEEE international workshop on cellular neural networks \&
+their applications}}.
+
+\leavevmode\hypertarget{ref-ColemanA}{}%
+Coleman, M., \& Liau, T. L. n.d. A computer readability formula designed
+for machine scoring. \emph{\textbf{Journal of Applied Psychology}},
+60(2): 283--284.
+
+\leavevmode\hypertarget{ref-GodesProducts}{}%
+Godes, D., Ofek, E., \& Sarvary, M. n.d. Products vs. Advertising: Media
+competition and the relative source of firm profits.
+\emph{\textbf{Social Science Electronic Publishing}}.
+
+\leavevmode\hypertarget{ref-WangGongPeng}{}%
+Gongpeng, W., Meng, D., \& Changyong, N. 2018. Stochastic gradient
+descent algorithm based on convolutional neural network.
+\emph{\textbf{Computer Engineering and Design}}, 39(2): 441--445.
+
+\leavevmode\hypertarget{ref-HeijdenOnline}{}%
+Heijden, H. V. D., \& Verhagen, T. n.d. Online store image: Conceptual
+foundations and empirical measurement. \emph{\textbf{Information \&
+Management}}, 41(5): 609--617.
+
+\leavevmode\hypertarget{ref-HoSystemic}{}%
+Ho, \& E., D. G. n.d. Systemic text analysis in the esl writing
+classroom: Does it work? \emph{\textbf{Relc Journal A Journal of
+Language Teaching \& Research}}, 40(3): 333--359.
+
+\leavevmode\hypertarget{ref-KorfiatisUsing}{}%
+Korfiatis, N., \& Poulos, M. n.d. Using online consumer reviews as a
+source for demographic recommendations: A case study using online travel
+reviews. \emph{\textbf{Expert Systems with Applications}}, 40(14):
+5507--5515.
+
+\leavevmode\hypertarget{ref-LeePerceived}{}%
+Lee, S. G., Trimi, S., \& Yang, C.-G. n.d. Perceived usefulness factors
+of online reviews: A study of amazon.com. \emph{\textbf{Journal of
+Computer Information Systems}}, 1--9.
+
+\leavevmode\hypertarget{ref-YanPingFan}{}%
+Pingfan, Y. 2005. \emph{\textbf{Artificial neural networks and simulated
+evolutionary computation (2nd edition)}}.
+
+\leavevmode\hypertarget{ref-SergentanisRe}{}%
+Sergentanis, T. N., \& Economopoulos, K. P. n.d. \emph{\textbf{Re: Jiang
+et al.: meta-analysis of association between tp53 arg72pro polymorphism
+and bladder cancer risk (urology 2010;76:765)}}, 77(1): 0--260.
+
+\leavevmode\hypertarget{ref-ZhuangZhenQuan}{}%
+Zhenquan, Z., \& Dongsheng, W. 1990. Neural networks and neural
+computers: Lecture 2 learning algorithms for neural networks.
+\emph{\textbf{Application of Electronic Technology}}, (5): 38--41.
+
+\newpage
+
+\hypertarget{appendix}{%
+\section*{Appendix}\label{appendix}}
+\addcontentsline{toc}{section}{Appendix}
+
+
+\end{document}

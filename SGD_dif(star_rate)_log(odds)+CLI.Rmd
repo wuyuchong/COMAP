@@ -1,0 +1,1020 @@
+---
+title: "SGD"
+documentclass: ctexart
+output:
+  rticles::ctex:
+    fig_caption: yes
+    number_sections: yes
+    toc: yes
+classoption: "hyperref,"
+---
+
+```{r}
+library(tidyverse)
+library(ggplot2)
+library(caret)
+```
+
+```{r}
+hair_dryer = read.csv("hair_dryer.tsv", sep = "\t")
+microwave = read.csv("microwave.tsv", sep = "\t")
+pacifier = read.csv("pacifier.tsv", sep = "\t")
+
+review_rating = read.csv("hair_dryer_predict.csv")$predict
+hair_dryer = hair_dryer %>% 
+  cbind(review_rating) 
+hair_dryer = hair_dryer %>% 
+  mutate(group = "hair_dryer")
+
+review_rating = read.csv("microwave_predict.csv")$predict
+microwave = microwave %>% 
+  cbind(review_rating) 
+microwave = microwave %>% 
+  mutate(group = "microwave")
+
+review_rating = read.csv("pacf_predict.csv")$predict
+pacifier = pacifier %>% 
+  cbind(review_rating) 
+pacifier = pacifier %>% 
+  mutate(group = "pacifier")
+
+all = rbind(hair_dryer, microwave, pacifier)
+dat = all %>% 
+  dplyr::select(review_date, star_rating, group, product_parent, total_votes) %>% 
+  mutate(line = 1:nrow(all))
+
+dat$review_date = mdy(dat$review_date)
+dat$review_date = year(dat$review_date)
+```
+
+
+# 判定成功与失败
+
+```{r}
+count = dat %>% 
+  group_by(product_parent, review_date) %>% 
+  summarise(count = mean(star_rating)) %>% 
+  mutate(increase = 0) %>% 
+  mutate(success = FALSE)
+
+for(i in 1:(nrow(count)-1))
+{
+  if(count$product_parent[i] == count$product_parent[i+1])
+  {
+    count$increase[i] = count$count[i+1] - count$count[i]
+  } else 
+  {
+    count$increase[i] = 0
+  }
+}
+
+for(i in 1:nrow(count))
+{
+  if(count$increase[i] > 0)
+  {
+    count$success[i] = TRUE
+  }
+}
+```
+
+此表格可输出用来做展示
+
+```{r}
+# Calculate Emotion
+bing = read.csv("bing.csv")
+bing_positive = bing %>% 
+  filter(sentiment == "positive")
+bing_negative = bing %>% 
+  filter(sentiment == "negative")
+text_df = tibble(line = 1: nrow(all), text = as.character(all$review_body))
+positive_df = text_df %>% 
+  unnest_tokens(word, text) %>% 
+  anti_join(stop_words) %>% 
+  inner_join(bing_positive) %>% 
+  group_by(line) %>% 
+  summarise(positive = n())
+negative_df = text_df %>% 
+  unnest_tokens(word, text) %>% 
+  anti_join(stop_words) %>% 
+  inner_join(bing_negative) %>% 
+  group_by(line) %>% 
+  summarise(negative = n())
+```
+
+```{r}
+count = count %>% 
+  mutate(success = 0)
+for(i in 1:nrow(count))
+{
+  if(count$increase[i] > 0)
+  {
+    count$success[i] = 1
+  }
+}
+dat_original = dat %>% 
+  left_join(count, by = c("product_parent", "review_date")) %>% 
+  left_join(positive_df, by = "line") %>% 
+  left_join(negative_df, by = "line") %>% 
+  mutate(log_odds = log(positive / negative)) %>% 
+  filter(review_date < 2015) %>% 
+  filter(group == "hair_dryer") %>% 
+  na.omit()
+
+dat_original$success %>% 
+  table()
+
+# 临时
+
+dat_original %>%
+  ggplot(aes(x = log_odds, y = increase)) +
+  geom_point(alpha = 0.1) +
+  geom_smooth(method = "lm")
+
+dat_original$log_odds = scale(dat_original$log_odds)
+dat_original$total_votes = scale(dat_original$total_votes)
+
+dat = dat_original
+```
+
+由于数据中最新评论为2015年，所以对于2015年我们无法计算下一年是否增长，不知道它是否是潜在的成功商品，所以在搭建模型中我们去除了2015年的数据。
+
+# 基于GD/SGD优化方法的logit模型
+
+## 模型的建立
+
+假设我们有n个独立的训练样本{(x1, y1) ,(x2, y2),…, (xn, yn)}，y={0, 1}。那每一个观察到的样本(xi, yi)出现的概率是：
+
+$$P\left(\mathrm{y}_{i}, \mathrm{x}_{i}\right)=P\left(\mathrm{y}_{i}=1 | \mathrm{x}_{i}\right)^{y_{i}}\left(1-P\left(\mathrm{y}_{i}=1 | \mathrm{x}_{i}\right)\right)^{1-y_{i}}$$
+
+那我们的整个样本集，也就是n个独立的样本出现的似然函数为:
+
+$$L(\theta)=\prod P\left(\mathrm{y}_{i}=1 | \mathrm{x}_{i}\right)^{y_{i}}\left(1-P\left(\mathrm{y}_{i}=1 | \mathrm{x}_{i}\right)\right)^{1-y_{i}}$$
+
+那么，代价函数（cost function）就是最大似然函数。 ^[最大似然法就是求模型中使得似然函数最大的系数取值 $\theta$]
+
+## 模型的求解
+
+用$L(\theta)$对$\theta$求导，得到：
+
+$$\frac{\partial L(\theta)}{\partial \theta}=\sum_{i=1}^{n} y_{i} x_{i}-\sum_{i}^{n} \frac{e^{\theta^{T} x_{i}}}{1+e^{\theta_{x_{i}}}} x_{i}=\sum_{i=1}^{n}\left(y_{i}-\sigma\left(\theta^{T} x_{i}\right)\right) x_{i}$$
+
+令该导数为0，无法解析求解。使用梯度下降法 @汪宝彬2011随机梯度下降法的一些性质 ，那么：
+
+$$\theta^{t+1}=\theta^{t}-\alpha \frac{\partial L(\theta)}{\partial \theta}=\theta^{t}-\alpha \sum_{i=1}^{n}\left(y_{i}-\sigma\left(\theta^{T} x_{i}\right)\right) x_{j}$$
+
+在进行训练之前，我们对各个变量的数据进行标准化处理。然后，我们让学习率逐步递减进行训练。
+
+```{r echo=FALSE}
+alpha = function(x)
+{
+  if(x<100)
+  {
+    return(1/exp(x)/100)
+  }
+  else
+  {
+    return(1/exp(100))
+  }
+}
+```
+
+```{r echo=FALSE, fig.align='center', fig.cap='递减的学习率函数', warning=FALSE, out.width='40%'}
+curve(alpha, from = 1, to = 50, n = 100, add = FALSE, type = "l", xlab = 'epochs', ylab = 'learn_rate')
+```
+
+```{r echo=FALSE}
+# --- prepare
+dat = dat_original %>% 
+  dplyr::select(log_odds, total_votes, success)
+
+# dat[,(1:2)] = scale(dat[,(1:2)])
+```
+
+```{r echo=FALSE}
+## 单独定义其中的数学函数
+
+sig = function(x)
+{
+  outcome = exp(x)/(1+exp(x))
+  return(outcome)
+}
+```
+
+```{r echo=FALSE}
+## 定义sigmoid函数
+
+sigmoid = function(x)
+{
+  outcome = 1/(1+exp(-x))
+  return(outcome)
+}
+```
+
+```{r echo=FALSE}
+## 定义求导过程
+
+d = function(Y, X, theta)
+{
+  outcome = numeric(length = 2)
+  for(i in 1:length(Y))
+  {
+    new = Y[i] - sig(sum(theta*X[i, ]))
+    new = new * X[i, ]
+    outcome = outcome + new
+    return(outcome)
+  }
+}
+```
+
+```{r echo=FALSE}
+## 定义递减的学习率
+
+alpha = function(x)
+{
+  if(x<100)
+  {
+    return(1/exp(x)/100)
+  }
+  else
+  {
+    return(1/exp(100))
+  }
+}
+```
+
+```{r echo=FALSE}
+## 定义求解系数的函数
+
+# --- 函数的参数为训练集的Y和X，返回系数（不包括常数）
+f_theta = function(Y, X)
+{
+  # --- 设置初始的theta
+  theta = c(seq(0.1, 0.01, length.out = 2))
+  for(i in 1:1000)
+  {
+    for(j in 1:1000)
+      theta = theta - alpha(i) * d(Y, X, theta)
+  }
+  return(theta)
+}
+```
+
+```{r echo=FALSE}
+## 定义阈值确定函数
+
+f_thre = function(theta, Y)
+{
+  thre = 0
+  rate_record = 0
+  for(i in seq(-1, 1, 0.01))
+  {
+    Y = as.matrix(Y)
+    theta = as.matrix(theta)
+    Y_hat = X %*% theta
+    Y_hat = sigmoid(Y_hat)
+    for(j in 1:nrow(Y_hat))
+    {
+      if(Y_hat[j] > i)
+      {
+        Y_hat[j] = 1
+      }
+      else
+      {
+        Y_hat[j] = 0
+      }
+    }
+    n = 0
+    for(k in 1:nrow(Y))
+    {
+      if(Y[k]==Y_hat[k])
+        n = n + 1
+    }
+    rate = n/nrow(Y)
+    if(rate > rate_record)
+    {
+      thre = i
+      rate_record = rate
+    }
+  }
+  return(thre)
+}
+```
+
+```{r echo=FALSE}
+## 定义验证函数
+
+# --- 函数的参数为系数theta、阈值thre、验证集的Y、X，函数的返回值为正确率
+
+val = function(theta, thre, Y, X)
+{
+  Y = as.matrix(Y)
+  theta = as.matrix(theta)
+  Y_hat = X %*% theta
+  Y_hat = sigmoid(Y_hat)
+  for(j in 1:nrow(Y_hat))
+    {
+      if(Y_hat[j] > thre)
+      {
+        Y_hat[j] = 1
+      }
+      else
+      {
+        Y_hat[j] = 0
+      }
+    }
+  n = 0
+  for(k in 1:nrow(Y))
+  {
+    if(Y[k]==Y_hat[k])
+      n = n + 1
+  }
+  rate = n/nrow(Y)
+  return(rate)
+}
+```
+
+```{r echo=FALSE}
+flds <- createFolds(dat$success, k = 10, list = TRUE, returnTrain = FALSE)
+dat_1 = dat[ flds[[1]], ]
+dat_2 = dat[ flds[[2]], ]
+dat_3 = dat[ flds[[3]], ]
+```
+
+
+```{r echo=FALSE}
+### 第1组为验证集
+dat_train = rbind(dat_2, dat_3)
+dat_validation = dat_1
+```
+
+```{r}
+# --- 训练
+time_1 = proc.time()
+Y = dat_train[, 3]
+X = as.matrix(dat_train[, 1:2])
+theta = f_theta(Y, X)
+thre = f_thre(theta, Y)
+time_2 = proc.time()
+time11 = time_2[3]-time_1[3]
+
+# --- 验证
+Y = dat_validation[, 3]
+X = as.matrix(dat_validation[, 1:2])
+correct11 = val(theta, thre, Y, X)
+```
+
+
+```{r echo=FALSE}
+### 第2组为验证集
+
+dat_train = rbind(dat_1, dat_3)
+dat_validation = dat_2
+```
+
+```{r}
+# --- 训练
+time_1 = proc.time()
+Y = dat_train[, 3]
+X = as.matrix(dat_train[, 1:2])
+theta = f_theta(Y, X)
+thre = f_thre(theta, Y)
+time_2 = proc.time()
+time12 = time_2[3]-time_1[3]
+
+# --- 验证
+Y = dat_validation[, 3]
+X = as.matrix(dat_validation[, 1:2])
+correct12 = val(theta, thre, Y, X)
+```
+
+
+```{r echo=FALSE}
+### 第3组为验证集
+
+dat_train = rbind(dat_1, dat_2)
+dat_validation = dat_3
+```
+
+```{r}
+# --- 训练
+time_1 = proc.time()
+Y = dat_train[, 3]
+X = as.matrix(dat_train[, 1:2])
+theta = f_theta(Y, X)
+thre = f_thre(theta, Y)
+time_2 = proc.time()
+time13 = time_2[3]-time_1[3]
+
+# --- 验证
+Y = dat_validation[, 3]
+X = as.matrix(dat_validation[, 1:2])
+correct13 = val(theta, thre, Y, X)
+```
+
+
+```{r echo=FALSE}
+## 定义SGD算法
+
+SGD_theta = function(Y, X)
+{
+  # --- 设置初始的theta
+  theta = c(seq(0.1, 0.01, length.out = 2))
+  for(i in 1:1000)
+  {
+    random = sample(seq(1,(round(length(Y)/10) - 1) * 10,by=1),(round(length(Y)/10) - 1) * 10,replace=FALSE)
+    for(k in 1:10)
+    {
+      Ynew = Y[c(random[(1+(round(length(Y)/10) - 1)*(k-1)):((round(length(Y)/10) - 1)*k)])]
+      Xnew = X[c(random[(1+(round(length(Y)/10) - 1)*(k-1)):((round(length(Y)/10) - 1)*k)]), ]
+      theta = theta - alpha(i) * d(Ynew, Xnew, theta)
+    }
+  }
+  return(theta)
+}
+```
+
+```{r echo=FALSE}
+### 第1组为验证集
+
+dat_train = rbind(dat_2, dat_3)
+dat_validation = dat_1
+```
+
+```{r}
+# --- 训练
+time_1 = proc.time()
+Y = dat_train[, 3]
+X = as.matrix(dat_train[, 1:2])
+theta = SGD_theta(Y, X)
+thre = f_thre(theta, Y)
+time_2 = proc.time()
+time21 = time_2[3]-time_1[3]
+
+# --- 验证
+Y = dat_validation[, 3]
+X = as.matrix(dat_validation[, 1:2])
+correct21 = val(theta, thre, Y, X)
+```
+
+
+```{r echo=FALSE}
+### 第2组为验证集
+
+dat_train = rbind(dat_1, dat_3)
+dat_validation = dat_2
+```
+
+```{r}
+# --- 训练
+time_1 = proc.time()
+Y = dat_train[, 3]
+X = as.matrix(dat_train[, 1:2])
+theta = SGD_theta(Y, X)
+thre = f_thre(theta, Y)
+time_2 = proc.time()
+time22 = time_2[3]-time_1[3]
+
+# --- 验证
+Y = dat_validation[, 3]
+X = as.matrix(dat_validation[, 1:2])
+correct22 = val(theta, thre, Y, X)
+```
+
+```{r echo=FALSE}
+### 第3组为验证集
+
+dat_train = rbind(dat_1, dat_2)
+dat_validation = dat_3
+```
+
+```{r}
+# --- 训练
+time_1 = proc.time()
+Y = dat_train[, 3]
+X = as.matrix(dat_train[, 1:2])
+theta = SGD_theta(Y, X)
+thre = f_thre(theta, Y)
+time_2 = proc.time()
+time23 = time_2[3]-time_1[3]
+
+# --- 验证
+Y = dat_validation[, 3]
+X = as.matrix(dat_validation[, 1:2])
+correct23 = val(theta, thre, Y, X)
+```
+
+
+# 基于SGD优化方法的神经网络模型
+
+## 模型建立
+
+### 神经元
+
+神经元是神经网络的基本单元。 @Chua1988Cellular 神经元先获得输入，然后执行某些数学运算后，再产生一个输出。 @庄镇泉1990神经网络与神经计算机:第二讲
+
+对于一个二输入神经元，输出步骤为：
+先将两个输入乘以权重，把两个结果想加，再加上一个偏置，最后将它们经过激活函数处理得到输出。 ^[神经元（Neurons）权重（weight）偏置（bias）激活函数（activation function）]
+
+$$y = f(x1 × w1 + x2 × w2 + b)$$
+
+我们选择 sigmoid 函数作为神经网络的激活函数。
+
+$$S(x) = \frac{1}{1 + e^{-x}}$$
+
+$$S'(x) = \frac{e^{-x}}{(1 + e^{-x})^2} = S(x)(1-S(x))$$
+
+### 神经网络
+
+考虑到单机运算速度的限制，我们搭建一个简单的神经网络。它具有2个输入、一个包含2个神经元的隐藏层（h1和h2）、包含1个神经元的输出层（o1）。 @阎平凡2005人工神经网络与模拟进化计算
+^[A neural network with:
+        - 2 inputs
+        - a hidden layer with 2 neurons (h1, h2)
+        - an output layer with 1 neuron (o1)]
+
+### 前馈
+
+把神经元的输入向前传递获得输出的过程称为前馈 ^[前馈（feedforward）]
+
+### 损失
+
+在训练神经网络之前，我们需要有一个标准定义，以便我们进行改进。我们采用均方误差（MSE）来定义损失（loss）：
+
+$$ MSE = \frac{1}{n} \sum_{i=1}^n (y_{true} - y_{pred}) $$
+
+我们在训练中每次只取一个样本，那么损失函数为：
+
+$$ \begin{aligned} \mathrm{MSE} &=\frac{1}{1} \sum_{i=1}^{1}\left(y_{t r u e}-y_{p r e d}\right)^{2} \\ &=\left(y_{t r u e}-y_{p r e d}\right)^{2} \\ &=\left(1-y_{p r e d}\right)^{2} \end{aligned} $$
+
+## 模型求解
+
+### 训练神经网络
+
+训练神经网络就是将损失最小化，预测结果越好，损失就越低。
+
+
+由于预测值是由一系列网络权重和偏置计算出来的，所以损失函数实际上是包含多个权重、偏置的多元函数：
+
+$$L\left(w_{1}, w_{2}, w_{3}, w_{4}, w_{5}, w_{6}, b_{1}, b_{2}, b_{3}\right)$$
+由链式求导法则（以w1为例）：
+
+$$\frac{\partial L}{\partial w_{1}}=\frac{\partial L}{\partial y_{p r e d}} * \frac{\partial y_{p r e d}}{\partial h_{1}} * \frac{\partial h_{1}}{\partial w_{1}}$$
+
+这种向后计算偏导数的系统称为反向传导。 ^[反向传导（backpropagation）]
+
+### SGD优化方法
+
+我们使用随机梯度下降（SGD）的优化算法 @王功鹏2018基于卷积神经网络的随机梯度下降算法 来逐步改变网络的权重w和偏置b，使损失函数会缓慢降低，从而改进我们的神经网络。以w1为例：
+
+$$w_{1} \leftarrow w_{1}-\eta \frac{\partial L}{\partial w_{1}}$$
+
+
+
+```{r echo=FALSE, fig.align='center', fig.cap='sigmoid function', out.width='40%'}
+curve(1/(1+exp(-x)), from = -6, to = 6, n = 100, add = FALSE, type = "l", xlab = 'x', ylab = 'y')
+```
+
+```{r echo=FALSE}
+### 定义 sigmoid 的导函数
+
+deriv_sigmoid = function(x)
+{
+  fx = sigmoid(x)
+  return(fx * (1 - fx))
+}
+```
+
+```{r echo=FALSE}
+### 定义损失函数
+
+mse_loss = function(y_true, y_pred)
+{
+  return(mean((y_true - y_pred)^2))
+}
+```
+
+
+```{r echo=FALSE, fig.align='center', fig.cap='搭建的神经网络示意图', out.width='80%'}
+knitr::include_graphics("搭建的神经网络示意图.png")
+```
+
+### 权重的初始化
+
+神经网络中结点的各权重(weight)和偏置(bias) 的初始化均服从标准正态分布
+
+$$ Weight_i,Bias_i \sim N(0,1)$$
+
+
+```{r echo=FALSE}
+# --- 权重
+w1 = rnorm(1)
+w2 = rnorm(1)
+w3 = rnorm(1)
+w4 = rnorm(1)
+w5 = rnorm(1)
+w6 = rnorm(1)
+
+# --- 截距
+b1 = rnorm(1)
+b2 = rnorm(1)
+b3 = rnorm(1)
+```
+
+```{r echo=FALSE}
+feedforward = function(x, w1, w2, w3, w4, w5, w6, b1, b2, b3)
+{
+  h1 = sigmoid(w1 * x[1] + w2 * x[2] + b1)
+  h2 = sigmoid(w3 * x[1] + w4 * x[2] + b2)
+  o1 = sigmoid(w5 * h1 + w6 * h2 + b3)
+  return(o1)
+}
+```
+
+## 模型结果
+
+从结果上看，随着迭代次数的增加，均方误差先快速减小，后趋向于稳定。
+
+```{r echo=FALSE}
+train = function(x, all_y_trues, pred_dat, learn_rate = 0.1, epochs = 400, plot = FALSE)
+{
+  # --- 梯度下降
+  epoch_loss = data.frame(epoch = c(rep(0,epochs)), loss = c(rep(0, epochs)))
+  for (epoch in 1:epochs)
+  {
+    for (i in 1:nrow(x))
+    {
+      # --- Do a feedforward (we'll need these values later)
+      
+      sum_h1 = w1 * x[i,1] + w2 * x[i,2] + b1
+      h1 = sigmoid(sum_h1)
+      
+      sum_h2 = w3 * x[i,1] + w4 * x[i,2] + b2
+      h2 = sigmoid(sum_h2)
+      
+      sum_o1 = w5 * h1 + w6 * h2 + b3
+      o1 = sigmoid(sum_o1)
+      y_pred = o1
+      
+      # --- Calculate partial derivatives.
+      # --- Naming: d_L_d_w1 represents "partial L / partial w1"
+      
+      d_L_d_ypred = -2 * (all_y_trues[i] - y_pred)
+      
+       # --- Neuron o1
+      d_ypred_d_w5 = h1 * deriv_sigmoid(sum_o1)
+      d_ypred_d_w6 = h2 * deriv_sigmoid(sum_o1)
+      d_ypred_d_b3 = deriv_sigmoid(sum_o1)
+
+      d_ypred_d_h1 = w5 * deriv_sigmoid(sum_o1)
+      d_ypred_d_h2 = w6 * deriv_sigmoid(sum_o1)
+
+      # --- Neuron h1
+      d_h1_d_w1 = x[i,1] * deriv_sigmoid(sum_h1)
+      d_h1_d_w2 = x[i,2] * deriv_sigmoid(sum_h1)
+      d_h1_d_b1 = deriv_sigmoid(sum_h1)
+
+      # --- Neuron h2
+      d_h2_d_w3 = x[i,1] * deriv_sigmoid(sum_h2)
+      d_h2_d_w4 = x[i,2] * deriv_sigmoid(sum_h2)
+      d_h2_d_b2 = deriv_sigmoid(sum_h2)
+      
+      # --- Update weights and biases
+      # --- Neuron h1
+      w1 = w1 - learn_rate * d_L_d_ypred * d_ypred_d_h1 * d_h1_d_w1
+      w2 = w2 - learn_rate * d_L_d_ypred * d_ypred_d_h1 * d_h1_d_w2
+      b1 = b2 - learn_rate * d_L_d_ypred * d_ypred_d_h1 * d_h1_d_b1
+      
+      # --- Neuron h2
+      w3 = w3 - learn_rate * d_L_d_ypred * d_ypred_d_h2 * d_h2_d_w3
+      w4 = w4 - learn_rate * d_L_d_ypred * d_ypred_d_h2 * d_h2_d_w4
+      b2 = b2 - learn_rate * d_L_d_ypred * d_ypred_d_h2 * d_h2_d_b2
+      
+      # --- Neuron o1
+      w5 = w5 - learn_rate * d_L_d_ypred * d_ypred_d_w5
+      w6 = w6 - learn_rate * d_L_d_ypred * d_ypred_d_w6
+      b3 = b3 - learn_rate * d_L_d_ypred * d_ypred_d_b3
+    }
+    
+    # --- Calculate total loss at the end of each epoch
+
+    y_preds = apply(x, 1, feedforward, w1, w2, w3, w4, w5, w6, b1, b2, b3)
+    epoch_loss[epoch,1] = epoch
+    epoch_loss[epoch,2] = mse_loss(all_y_trues, y_preds)
+  }
+  
+  # --- Plot MSE
+  if(plot == TRUE)
+  {
+    plot(x = epoch_loss$epoch, y = epoch_loss$loss, xlab = 'epochs', ylab = 'MSE')
+  }
+
+  # --- Prediction
+  outcome = apply(pred_dat, 1, feedforward, w1, w2, w3, w4, w5, w6, b1, b2, b3)
+  return(outcome)
+}
+```
+
+```{r echo=FALSE, fig.align='center', fig.cap='均方误差随迭代次数的变化', out.width='60%'}
+knitr::include_graphics("均方误差随迭代次数的变化.png")
+```
+
+```{r echo=FALSE}
+dat = dat_original %>% 
+  dplyr::select(log_odds, total_votes)
+#dat = scale(dat)
+all_y_trues = dat_original %>% 
+  dplyr::select(success)
+```
+
+```{r echo=FALSE}
+dat = cbind(dat, all_y_trues)
+#dat = scale(dat)
+dat_train = dat[,c(1,2)]
+```
+
+```{r echo=FALSE}
+pred_dat = dat
+```
+
+
+
+```{r}
+#outcome = train(dat_train, all_y_trues, pred_dat, plot = TRUE)
+```
+
+
+```{r echo=FALSE}
+## 定义转换功能函数
+
+transfer = function(outcome)
+{
+  for(i in 1:length(outcome))
+  {
+    if(outcome[i] < 0.5)
+      outcome[i] = 0
+    else
+      outcome[i] = 1
+  }
+  return(outcome)
+}
+```
+
+
+
+```{r echo=FALSE}
+## 定义验证函数
+
+# --- 函数的参数为系数theta、阈值thre、验证集的Y、X，函数的返回值为正确率
+
+val = function(Y_hat, Y)
+{
+  n = 0
+  for(k in 1:length(Y))
+  {
+    if(Y[k]==Y_hat[k])
+      n = n + 1
+  }
+  rate = n/length(Y)
+  return(rate)
+}
+```
+
+```{r}
+### 第1组为验证集
+
+dat_train = rbind(dat_2, dat_3)
+dat_validation = dat_1
+```
+
+```{r}
+# --- 训练
+time_1 = proc.time()
+X = dat_train[, c(1,2)]
+all_y_trues = dat_train[,3]
+pred_dat = dat_validation[,c(1,2)]
+outcome = train(X, all_y_trues, pred_dat)
+Y_hat = transfer(outcome)
+time_2 = proc.time()
+time31 = time_2[3]-time_1[3]
+  
+# --- 验证
+Y = dat_validation[,3]
+correct31 = val(Y_hat, Y)
+```
+
+
+```{r}
+### 第2组为验证集
+
+dat_train = rbind(dat_1, dat_3)
+dat_validation = dat_2
+```
+
+```{r}
+# --- 训练
+time_1 = proc.time()
+X = dat_train[, c(1,2)]
+all_y_trues = dat_train[,3]
+pred_dat = dat_validation[,c(1,2)]
+outcome = train(X, all_y_trues, pred_dat)
+Y_hat = transfer(outcome)
+time_2 = proc.time()
+time32 = time_2[3]-time_1[3]
+  
+# --- 验证
+Y = dat_validation[,3]
+correct32 = val(Y_hat, Y)
+```
+
+
+```{r}
+### 第3组为验证集
+
+dat_train = rbind(dat_1, dat_2)
+dat_validation = dat_3
+```
+
+```{r}
+# --- 训练
+time_1 = proc.time()
+X = dat_train[, c(1,2)]
+all_y_trues = dat_train[,3]
+pred_dat = dat_validation[,c(1,2)]
+outcome = train(X, all_y_trues, pred_dat)
+Y_hat = transfer(outcome)
+time_2 = proc.time()
+time33 = time_2[3]-time_1[3]
+  
+# --- 验证
+Y = dat_validation[,3]
+correct33 = val(Y_hat, Y)
+```
+
+# 综合法
+
+## 综合评判方法
+
+我们给神经网络模型赋予50%的权重；logit模型中，使用梯度下降方法和使用SGD优化方法各赋予25%的权重。于是：
+
+$$P_{total} = \frac{1}{4} P_1 + \frac{1}{4} P_2 + \frac{1}{2} P_3 $$
+
+由于预测的输出结果为一个介于0和1的概率值，故我们还需要根据概率将其转换为逻辑值:
+
+$$ 
+logit=\left\{
+\begin{aligned}
+0 &  & P_{total}<0.5 \\
+1 &  & P_{total}>0.5
+\end{aligned}
+\right.
+$$
+
+```{r echo=FALSE}
+## 函数封装
+
+super_train = function(dat_train, dat_validation)
+{
+  # --- 训练1
+  Y = dat_train[, 3]
+  X = as.matrix(dat_train[, 1:2])
+  theta = f_theta(Y, X)
+  theta = as.matrix(theta)
+  Y_hat1 = X %*% theta
+  Y_hat1 = sigmoid(Y_hat1)
+  
+  # --- 训练2
+  Y = dat_train[, 3]
+  X = as.matrix(dat_train[, 1:2])
+  theta = SGD_theta(Y, X)
+  theta = as.matrix(theta)
+  Y_hat2 = X %*% theta
+  Y_hat2 = sigmoid(Y_hat2)
+  
+  # --- 训练3
+  X = dat_train[, c(1,2)]
+  all_y_trues = dat_train[,3]
+  pred_dat = dat_validation[,c(1,2)]
+  Y_hat3 = train(X, all_y_trues, pred_dat)
+  
+  # --- 加权得分
+  outcome = Y_hat1 *0.25 + Y_hat2 *0.25 + Y_hat3 *0.5
+  Y_hat = transfer(outcome)
+  return(Y_hat)
+}
+```
+
+# 交叉验证
+
+我们使用整理后的爬取数据的每股收益和每股净资产对分配方案进行预测。
+
+
+使用系统抽样法，我们将数据集分为四组进行交叉验证。 ^[耗时由于计算机硬件水平和温度情况有差异，仅供参考]
+
+```{r}
+### 第1组为验证集
+
+dat_train = rbind(dat_2, dat_3)
+dat_validation = dat_1
+
+# --- 训练和验证
+time_1 = proc.time()
+Y_hat = super_train(dat_train, dat_validation)
+time_2 = proc.time()
+time1 = time_2[3]-time_1[3]
+Y = dat_validation[,3]
+correct1 = val(Y_hat, Y)
+```
+
+
+```{r}
+### 第2组为验证集
+
+dat_train = rbind(dat_1, dat_3)
+dat_validation = dat_2
+
+# --- 训练和验证
+time_1 = proc.time()
+Y_hat = super_train(dat_train, dat_validation)
+time_2 = proc.time()
+time2 = time_2[3]-time_1[3]
+Y = dat_validation[,3]
+correct2 = val(Y_hat, Y)
+```
+
+
+```{r}
+### 第3组为验证集
+
+dat_train = rbind(dat_1, dat_2)
+dat_validation = dat_3
+
+# --- 训练和验证
+time_1 = proc.time()
+Y_hat = super_train(dat_train, dat_validation)
+time_2 = proc.time()
+time3 = time_2[3]-time_1[3]
+Y = dat_validation[,3]
+correct3 = val(Y_hat, Y)
+```
+
+
+```{r echo=FALSE}
+## 清除中间变量
+
+rm(w1)
+rm(w2)
+rm(w3)
+rm(w4)
+rm(w5)
+rm(w6)
+rm(b1)
+rm(b2)
+rm(b3)
+```
+
+```{r}
+## 记录并导出正确率和用时
+
+dat_correct = data.frame(
+  训练方法 = c('logit_GD', 'logit_SGD', '神经网络', '综合法'),
+  交叉验证1 = c(correct11, correct21, correct31, correct1),
+  交叉验证2 = c(correct12, correct22, correct32, correct2),
+  交叉验证3 = c(correct13, correct23, correct33, correct3))
+
+dat_time = data.frame(
+  训练方法 = c('logit_GD', 'logit_SGD', '神经网络', '综合法'),
+  交叉验证1 = c(time11, time21, time31, time1),
+  交叉验证2 = c(time12, time22, time32, time2),
+  交叉验证3 = c(time13, time23, time33, time3))
+
+write.csv(dat_correct, 'dat_correct.csv')
+write.csv(dat_time, 'dat_time.csv')
+```
+
+```{r echo=FALSE}
+dat_time = read.csv('dat_time.csv')
+knitr::kable(dat_time[,-1], caption = '耗时（s）')
+```
+
+```{r echo=FALSE}
+dat_correct = read.csv('dat_correct.csv')
+knitr::kable(dat_correct[,-1], caption = '正确率')
+```
+
+
+我们从以上的两个表可以看出，虽然神经网络算法耗时长，但其准确率是较为准确的。而综合法看似综合了三种方法，但其准确率其实并不比单一的神经网络方法更高。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
